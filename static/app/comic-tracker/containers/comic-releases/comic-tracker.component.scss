@@ -1,0 +1,9 @@
+.comic-list {
+	list-style: none;
+	max-width: 600px;
+	padding: 0;
+
+	&__item {
+		margin: 0 0 18px;
+	}
+}

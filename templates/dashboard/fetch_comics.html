@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+    <div class="fetch-comics-container">
+
+        <h1>All comics</h1>
+
+        <hr>
+
+        <div class="row">
+            <div class="col col-sm-8">
+                <ul class="comic-list">
+                    {% for comic in comic_list %}
+                    <li class="comic-list__item">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src="{{ comic.cover_url }}" alt="{{ comic.title }}">
+                            </div>
+                            <div class="col-sm-8">
+                                <h2 class="comic__title">{{ comic.title }}</h2>
+                                <div class="comic__subtitle">
+                                    <em>{{ comic.publisher }}</em>, {{ comic.release_date }}, <em>{{ comic.price }}</em>
+                                </div>
+                                <div>{{ comic.description }}</div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col col-sm-4">
+
+                <h2>Fetch comics</h2>
+
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">{{ message }}</div>
+                {% endfor %}
+
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+
+                        {{ field }}
+                    {% endfor %}
+
+                    <button class="btn btn-primary">Fetch them!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

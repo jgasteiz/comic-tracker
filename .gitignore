@@ -1,0 +1,15 @@
+__pycache__
+.DS_Store
+.idea
+env
+.awcache
+/node_modules
+db.sqlite3
+db.json
+staticfiles
+local_remote.py
+*.hot-update.js
+*.hot-update.json
+static/build/
+vendor/vendor.js
+vendor/vendor.map

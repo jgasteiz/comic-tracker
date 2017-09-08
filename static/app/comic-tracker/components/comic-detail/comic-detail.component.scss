@@ -1,0 +1,14 @@
+.comic-detail {
+	display: flex;
+
+	&__image {
+		flex-shrink: 0;
+		width: 200px;
+	}
+	&__info {
+		padding-left: 12px;
+	}
+	&__tracking {
+		margin: 12px 0;
+	}
+}
