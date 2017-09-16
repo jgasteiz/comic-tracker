@@ -43,7 +43,7 @@ import { ComicTrackerService } from '../../comic-tracker.service';
 
         <hr>
 
-        <h2 *ngIf="comicList.length === 0">There are no comics for this date.</h2>
+        <h2 *ngIf="!loadingComics && comicList.length == 0">There are no comics for this date.</h2>
 
         <ul class="comic-list">
             <li *ngFor="let comic of comicList;" class="comic-list__item">
@@ -53,10 +53,12 @@ import { ComicTrackerService } from '../../comic-tracker.service';
                 ></comic-detail>
             </li>
         </ul>
+        <spinner [loading]="loadingComics"></spinner>
     `
 })
 export class ComicReleasesComponent implements OnInit {
     comicList: Comic[];
+    loadingComics: boolean;
     currentWednesdayDate: string;
     previousWednesdayDate: string;
     nextWednesdayDate: string;
@@ -71,17 +73,21 @@ export class ComicReleasesComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private comicTrackerService: ComicTrackerService,
-    ) {}
+    ) {
+        this.comicList = [];
+        this.loadingComics = false;
+    }
 
     ngOnInit() {
-        this.comicList = [];
-
         this.route.params.subscribe(params => {
             this.parseRouteAndFetchComics();
         });
     }
 
     parseRouteAndFetchComics() {
+        this.comicList = [];
+        this.loadingComics = true;
+
         // Get a valid moment.Moment object from the url.
         const momentDate = ComicTrackerService.getMomentDateFromString(this.route.snapshot.paramMap.get('date'));
 
@@ -105,12 +111,18 @@ export class ComicReleasesComponent implements OnInit {
             this.mode = 'tracked-comics';
             this.comicTrackerService
                 .getUserTrackedComics(this.currentWednesdayDate)
-                .subscribe(comicList => this.comicList = comicList);
+                .subscribe(comicList => {
+                    this.comicList = comicList;
+                    this.loadingComics = false;
+                });
         } else {
             this.mode = 'all-comics';
             this.comicTrackerService
                 .getReleases(this.currentWednesdayDate)
-                .subscribe(comicList => this.comicList = comicList);
+                .subscribe(comicList => {
+                    this.comicList = comicList;
+                    this.loadingComics = false;
+                });
         }
     }
 

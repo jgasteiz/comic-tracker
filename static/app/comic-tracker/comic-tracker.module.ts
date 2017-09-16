@@ -11,6 +11,7 @@ import { ComicReleasesComponent } from './containers/comic-releases/comic-releas
 
 // Components
 import { ComicDetailComponent } from './components/comic-detail/comic-detail.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 const appRoutes: Routes = [
     {
@@ -38,9 +39,12 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
+        // Containers
         ComicTrackerComponent,
         ComicReleasesComponent,
+        // Components
         ComicDetailComponent,
+        SpinnerComponent,
     ],
     imports: [
         CommonModule,
