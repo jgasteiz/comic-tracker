@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Comic } from '../../models/comic.interface';
-import { User } from '../../models/user.interface';
 
 @Component({
     selector: 'comic-detail',

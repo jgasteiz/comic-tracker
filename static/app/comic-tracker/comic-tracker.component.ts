@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ComicTrackerService } from './comic-tracker.service';
 import { User } from './models/user.interface';
 

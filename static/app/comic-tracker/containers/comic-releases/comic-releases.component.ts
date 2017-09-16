@@ -3,14 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Models
 import { Comic } from '../../models/comic.interface';
-import { User } from '../../models/user.interface';
 
 // Services
 import { ComicTrackerService } from '../../comic-tracker.service';
 
 @Component({
     providers: [ComicTrackerService],
-    styleUrls: ['comic-tracker.component.scss'],
+    styleUrls: ['comic-releases.component.scss'],
     selector: 'comic-releases',
     template: `
         <div class="row">
