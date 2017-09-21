@@ -13,12 +13,12 @@ import { ComicTrackerService } from '../../comic-tracker.service';
     selector: 'comic-releases',
     template: `
         <div class="row">
-            <div class="col col-sm-8">
+            <div class="col-md-6 mb-3">
                 <h1 *ngIf="mode === 'all-comics'">Weekly releases</h1>
                 <h1 *ngIf="mode === 'tracked-comics'">My Tracked Comics</h1>
             </div>
-            <div class="col col-sm-4 text-right">
-                <strong>Week: {{ currentWednesdayDate }}</strong>
+            <div class="col-md-6 text-right">
+                <div><strong>Week: {{ currentWednesdayDate }}</strong></div>
                 <div class="btn-group">
                     <a class="btn btn-primary"
                        routerLink="/weekly-releases/{{ previousWednesdayDate }}"
