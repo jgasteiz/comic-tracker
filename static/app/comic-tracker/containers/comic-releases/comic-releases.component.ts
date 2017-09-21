@@ -109,16 +109,14 @@ export class ComicReleasesComponent implements OnInit {
         if (this.router.url.indexOf('/my-tracked-comics') >= 0) {
             this.mode = 'tracked-comics';
             this.comicTrackerService
-                .getUserTrackedComics(this.currentWednesdayDate)
-                .subscribe(comicList => {
+                .getUserTrackedComics(this.currentWednesdayDate, comicList => {
                     this.comicList = comicList;
                     this.loadingComics = false;
                 });
         } else {
             this.mode = 'all-comics';
             this.comicTrackerService
-                .getReleases(this.currentWednesdayDate)
-                .subscribe(comicList => {
+                .getReleases(this.currentWednesdayDate, comicList => {
                     this.comicList = comicList;
                     this.loadingComics = false;
                 });

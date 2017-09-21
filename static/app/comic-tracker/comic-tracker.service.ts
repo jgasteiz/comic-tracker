@@ -12,6 +12,8 @@ import * as moment from 'moment';
 
 @Injectable()
 export class ComicTrackerService {
+    request: any;
+
     static getCookie(name) {
         let cookieValue: string;
         if (document.cookie && document.cookie !== '') {
@@ -69,14 +71,20 @@ export class ComicTrackerService {
         return this.http.get('/api/users/');
     }
 
-    getReleases(date: string): Observable<Comic[]> {
-        return this.http
-            .get(`/api/new-releases/?date=${date}`);
+    getReleases(date: string, callback: any): Observable<Comic[]> {
+        this._cancelPreviousRequest();
+        this.request = this.http
+            .get(`/api/new-releases/?date=${date}`)
+            .subscribe(callback);
+        return this.request;
     }
 
-    getUserTrackedComics(date: string): Observable<Comic[]> {
-        return this.http
-            .get(`/api/tracked-comics/?date=${date}`);
+    getUserTrackedComics(date: string, callback: any): Observable<Comic[]> {
+        this._cancelPreviousRequest();
+        this.request = this.http
+            .get(`/api/tracked-comics/?date=${date}`)
+            .subscribe(callback);
+        return this.request;
     }
 
     trackComic(comicId: number, tracked: boolean): Observable<Comic> {
@@ -84,5 +92,11 @@ export class ComicTrackerService {
             tracked: tracked,
         };
         return this.http.put(`/api/comics/${comicId}/`, body);
+    }
+
+    _cancelPreviousRequest() {
+        if (this.request != null && this.request.unsubscribe) {
+            this.request.unsubscribe();
+        }
     }
 }
